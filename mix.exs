@@ -29,7 +29,7 @@ defmodule TttElixir.MixProject do
   end
 
   defp version do
-    File.read(".elixir_version")
-    |> elem(1)
+    {_message, number} = File.read(".elixir_version")
+    number
   end
 end
