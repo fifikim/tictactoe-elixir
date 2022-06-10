@@ -40,6 +40,11 @@ Install dependencies:
 mix deps.get
 ```
 
+Compile the executable file:
+```
+mix escript.build
+```
+
 ### Linting <a name = "linting"></a>
 
 Run the linter:
