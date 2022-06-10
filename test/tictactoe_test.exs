@@ -1,7 +1,11 @@
 defmodule TicTacToe.CLITest do
   use ExUnit.Case
 
-  test "main returns the Welcome greeting" do
-    assert TicTacToe.CLI.main(1) == "Welcome to Tic Tac Toe!"
+  import ExUnit.CaptureIO
+
+  test "main prints the Welcome greeting to the terminal" do
+    assert capture_io(fn ->
+             TicTacToe.CLI.main(1)
+           end) == "Welcome to Tic Tac Toe!\n"
   end
 end
