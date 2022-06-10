@@ -44,7 +44,7 @@ mix deps.get
 
 Run the linter:
 ```
-mix credo
+mix credo --strict
 ```
 
 ### Testing <a name = "testing"></a>
