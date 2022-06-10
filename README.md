@@ -7,6 +7,7 @@ The initial functionality permits gameplay between two human players. The progra
 ## Table of Contents
 
 - [Getting Started](#getting_started)
+    - [Requirements](#requirements)
     - [Installation](#installation)
     - [Linting](#linting)
     - [Testing](#testing)
@@ -17,6 +18,10 @@ The initial functionality permits gameplay between two human players. The progra
 <br><br>
 
 ## Getting Started <a name = "getting_started"></a>
+
+### Requirements <a name = "requirements"></a>
+
+- <a href="https://elixir-lang.org/install.html">Elixir</a> 1.13.4 (use <a href="https://github.com/taylor/kiex">Kiex</a> to switch versions if you have a different version of Elixir currently installed)
 
 ### Installation <a name = "installation"></a>
 
