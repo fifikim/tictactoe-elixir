@@ -7,7 +7,6 @@ defmodule TttElixir.MixProject do
       version: "0.1.0",
       elixir: version(),
       start_permanent: Mix.env() == :prod,
-      escript: escript(),
       deps: deps()
     ]
   end
@@ -22,10 +21,6 @@ defmodule TttElixir.MixProject do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
-  end
-
-  defp escript do
-    [main_module: TicTacToe.CLI]
   end
 
   defp version do
