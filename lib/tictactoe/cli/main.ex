@@ -1,14 +1,17 @@
 defmodule TicTacToe.CLI.Main do
-  alias TicTacToe.Board
+  alias TicTacToe.Game
+  alias TicTacToe.Players
 
   import TicTacToe.CLI.Console
+  import TicTacToe.CLI.Play
 
-  def start_game do
-    display_instructions()
-    play()
-  end
+  def start do
+    instructions()
 
-  defp play do
-    display_board(%Board{})
+    players = %Players{}
+    game = %Game{current_player: players.player1}
+    play(game, players)
+
+    goodbye()
   end
 end
