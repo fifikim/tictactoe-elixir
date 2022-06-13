@@ -9,7 +9,6 @@ defmodule TicTacToe.CLI.Main do
   end
 
   defp play do
-    board = %Board{}
-    display_board(board)
+    display_board(%Board{})
   end
 end
