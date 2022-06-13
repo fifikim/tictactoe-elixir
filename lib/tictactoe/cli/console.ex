@@ -31,13 +31,9 @@ defmodule TicTacToe.CLI.Console do
     |> trunc()
   end
 
-  defp format_row(row_array) do
-    Enum.map_join(row_array, "|", &format_cell(&1))
-  end
+  defp format_row(row_array), do: Enum.map_join(row_array, "|", &format_cell(&1))
 
-  defp format_cell(cell) do
-    " #{cell} "
-  end
+  defp format_cell(cell), do: " #{cell} "
 
   defp horizontal_line(length) do
     "---"
