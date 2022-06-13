@@ -14,7 +14,6 @@ defmodule TicTacToe.CLI.ConsoleTest do
 
   test "Console.display_board/1 prints the Board to the terminal" do
     board = %TicTacToe.Board{}
-
     assert capture_io(fn ->
              Console.display_board(board)
            end) == " 1 | 2 | 3 \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n"
