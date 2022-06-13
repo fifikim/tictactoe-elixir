@@ -1,5 +1,4 @@
 defmodule TicTacToe.CLI.ConsoleTest do
-  alias TicTacToe.Board
   alias TicTacToe.CLI.Console
 
   use ExUnit.Case
@@ -14,8 +13,9 @@ defmodule TicTacToe.CLI.ConsoleTest do
   end
 
   test "Console.display_board/1 prints the Board to the terminal" do
+    board = %TicTacToe.Board{}
     assert capture_io(fn ->
-             Console.display_board(%TicTacToe.Board{})
+             Console.display_board(board)
            end) == " 1 | 2 | 3 \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n"
   end
 end
