@@ -4,16 +4,10 @@ defmodule TicTacToe.CLI.MainTest do
 
   import ExUnit.CaptureIO
 
-  test "Main.start_game/0 prints the greeting to the terminal" do
+  test "Main.start_game/0 prints the instructions to the terminal" do
     assert capture_io(fn ->
              Main.start_game()
-           end) =~ "Welcome to Tic Tac Toe!"
-  end
-
-  test "Main.start_game/0 prints the instructions & board to the terminal" do
-    assert capture_io(fn ->
-             Main.start_game()
-           end) =~ "Instructions:"
+           end) =~ "Welcome to Tic Tac Toe!\n\nInstructions:"
   end
 
   test "Main.start_game/0 prints the board to the terminal" do

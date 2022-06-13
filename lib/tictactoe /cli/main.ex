@@ -4,7 +4,7 @@ defmodule TicTacToe.CLI.Main do
   import TicTacToe.CLI.Console
 
   def start_game do
-    display_greeting()
+    display_instructions()
     play()
   end
 

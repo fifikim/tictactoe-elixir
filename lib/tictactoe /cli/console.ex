@@ -1,5 +1,5 @@
 defmodule TicTacToe.CLI.Console do
-  def display_greeting do
+  def display_instructions do
     IO.puts("Welcome to Tic Tac Toe!\n")
     IO.puts(instructions())
     IO.puts("Starting new game...\n")
