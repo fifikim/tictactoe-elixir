@@ -1,5 +1,5 @@
 defmodule TicTacToe.CLI.MainTest do
-  alias TicTacToe.CLI.Main, as: Main
+  alias TicTacToe.CLI.Main
   use ExUnit.Case
 
   import ExUnit.CaptureIO
