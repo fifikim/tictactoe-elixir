@@ -1,5 +1,7 @@
 defmodule TicTacToe.CLI.ConsoleTest do
+  alias TicTacToe.Board
   alias TicTacToe.CLI.Console
+
   use ExUnit.Case
 
   import ExUnit.CaptureIO
