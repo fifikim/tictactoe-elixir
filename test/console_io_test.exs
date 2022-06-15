@@ -1,8 +1,6 @@
 defmodule TicTacToe.ConsoleIOTest do
   alias TicTacToe.ConsoleIO
-
   use ExUnit.Case
-
   import ExUnit.CaptureIO
 
   test "ConsoleIO.input/0 takes input and returns a string with whitespace trimmed" do

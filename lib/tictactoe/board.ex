@@ -15,11 +15,7 @@ defmodule TicTacToe.Board do
     |> then(&is_marker?(markers, &1))
   end
 
-  def full?(%Board{cells: cells}, markers) do
-    Enum.all?(cells, &is_marker?(markers, &1))
-  end
+  def full?(%Board{cells: cells}, markers), do: Enum.all?(cells, &is_marker?(markers, &1))
 
-  defp is_marker?(markers, value) do
-    Enum.member?(markers, value)
-  end
+  defp is_marker?(markers, value), do: Enum.member?(markers, value)
 end

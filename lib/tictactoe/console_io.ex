@@ -2,21 +2,13 @@ defmodule TicTacToe.ConsoleIO do
   alias TicTacToe.Board
   alias TicTacToe.Game
 
-  def input do
-    IO.gets("") |> String.trim()
-  end
+  def input, do: IO.gets("") |> String.trim()
 
-  def output(message) do
-    IO.puts(message)
-  end
+  def output(message), do: IO.puts(message)
 
-  def greeting do
-    output("Welcome to Tic Tac Toe!\n")
-  end
+  def greeting, do: output("Welcome to Tic Tac Toe!\n")
 
-  def new_game do
-    output("Starting new game...\n")
-  end
+  def new_game, do: output("Starting new game...\n")
 
   def instructions(%Game{} = game) do
     game

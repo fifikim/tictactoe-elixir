@@ -1,6 +1,5 @@
 defmodule TicTacToe.PlayerTest do
   alias TicTacToe.Player
-
   use ExUnit.Case
   import ExUnit.CaptureIO
 

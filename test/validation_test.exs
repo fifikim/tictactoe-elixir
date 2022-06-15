@@ -1,6 +1,5 @@
 defmodule TicTacToe.ValidationTest do
   alias TicTacToe.Validation
-
   use ExUnit.Case
 
   test "Validation.check_selection/2 returns {:ok, index} when the selection is valid" do

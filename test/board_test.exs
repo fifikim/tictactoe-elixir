@@ -1,11 +1,8 @@
 defmodule TicTacToe.BoardTest do
   alias TicTacToe.Board
-
   use ExUnit.Case
 
-  test "Board struct creates a new Board" do
-    assert %Board{} == %Board{cells: nil}
-  end
+  test "Board struct creates a new Board", do: assert(%Board{} == %Board{cells: nil})
 
   test "Board.update/3 updates a board with a given marker at a given index" do
     board = TestHelpers.new_board()

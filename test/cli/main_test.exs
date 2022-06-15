@@ -1,7 +1,6 @@
 defmodule TicTacToe.CLI.MainTest do
   alias TicTacToe.CLI.Main
   use ExUnit.Case
-
   import ExUnit.CaptureIO
 
   test "Main.start/0 prints the 'welcome' greeting" do

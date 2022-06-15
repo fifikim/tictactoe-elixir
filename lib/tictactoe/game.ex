@@ -70,7 +70,5 @@ defmodule TicTacToe.Game do
 
   defp switch_player(%Game{players: %{player1: player1, player2: _player2}}), do: player1
 
-  defp check_over(%Board{} = board, markers) do
-    Board.full?(board, markers)
-  end
+  defp check_over(%Board{} = board, markers), do: Board.full?(board, markers)
 end

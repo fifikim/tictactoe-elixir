@@ -6,11 +6,7 @@ defmodule TicTacToe.Player do
             marker: nil,
             turn_msg: nil
 
-  def select_cell do
-    ConsoleIO.input()
-  end
+  def select_cell, do: ConsoleIO.input()
 
-  defimpl String.Chars do
-    def to_string(player), do: player.name
-  end
+  defimpl(String.Chars, do: def(to_string(player), do: player.name))
 end
