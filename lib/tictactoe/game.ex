@@ -8,8 +8,6 @@ defmodule TicTacToe.Game do
   defstruct board: nil,
             current_player: nil,
             next_player: nil,
-            markers: nil,
-            size: nil,
             game_over: false
 
   def play(%Game{} = game) do
