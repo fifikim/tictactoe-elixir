@@ -1,22 +1,23 @@
 defmodule TicTacToe.Validation do
   alias TicTacToe.Board
   alias TicTacToe.Game
+  alias TicTacToe.Player
 
   def check_selection(
         selection,
         %Game{
           board: %Board{cells: cells} = board,
-          current_player: current_player,
-          next_player: next_player
+          current_player: %Player{marker: current_player_marker},
+          next_player: %Player{marker: next_player_marker}
         } = game
       ) do
     cond do
       invalid_character?(selection, game) ->
-        {:error, "You must select a number between 1 and #{List.last(cells)}."}
+        {:error, "You must select a number between 1 and #{Enum.count(cells)}."}
 
       Board.space_occupied?(to_index(selection), board, [
-        current_player.marker,
-        next_player.marker
+        current_player_marker,
+        next_player_marker
       ]) ->
         {:error, "That cell has already been taken."}
 

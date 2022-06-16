@@ -59,16 +59,16 @@ defmodule TicTacToe.ConsoleIO do
 
   defp build_instructions(%Game{
          board: %Board{cells: cells},
-         current_player: current_player,
-         next_player: next_player
+         current_player: %Player{marker: current_player_marker, name: current_player_name},
+         next_player: %Player{marker: next_player_marker, name: next_player_name}
        }) do
     length = row_length(cells)
-    size = List.last(cells)
+    size = Enum.count(cells)
 
     """
     Instructions
     Enter the number (1-#{size}) of the space on the board where you want to move.
-    #{current_player.name} moves first and marks their spaces with an "#{current_player.marker}". #{next_player.name} marks with an "#{next_player.marker}".
+    #{current_player_name} moves first and marks their spaces with an "#{current_player_marker}". #{next_player_name} marks with an "#{next_player_marker}".
     To win, claim #{length} adjacent spaces in a horizontal, vertical, or diagonal line.
     If there are no free spaces and no player has won, the game will end in a draw.
     """

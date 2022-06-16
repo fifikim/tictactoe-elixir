@@ -26,14 +26,14 @@ defmodule TicTacToe.Game do
   defp take_turn(
          %Game{
            board: board,
-           current_player: current_player
+           current_player: %Player{marker: current_player_marker} = current_player
          } = game
        ) do
     ConsoleIO.display_board(board)
     ConsoleIO.turn_message(current_player)
 
     start_turn(game)
-    |> Board.update(current_player.marker, board)
+    |> Board.update(current_player_marker, board)
     |> end_turn(game)
     |> take_turn()
   end
@@ -53,14 +53,17 @@ defmodule TicTacToe.Game do
 
   defp end_turn(
          %Board{} = new_board,
-         %Game{current_player: current_player, next_player: next_player} = game
+         %Game{
+           current_player: %Player{marker: current_player_marker} = current_player,
+           next_player: %Player{marker: next_player_marker} = next_player
+         } = game
        ) do
     %Game{
       game
       | board: new_board,
         current_player: next_player,
         next_player: current_player,
-        game_over: check_over(new_board, [current_player.marker, next_player.marker])
+        game_over: check_over(new_board, [current_player_marker, next_player_marker])
     }
   end
 
