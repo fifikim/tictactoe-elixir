@@ -12,10 +12,10 @@ defmodule TicTacToe.Board do
   def space_occupied?(index, %Board{cells: cells}, markers) do
     cells
     |> Enum.at(index)
-    |> then(&is_marker?(markers, &1))
+    |> is_marker?(markers)
   end
 
-  def full?(%Board{cells: cells}, markers), do: Enum.all?(cells, &is_marker?(markers, &1))
+  def full?(%Board{cells: cells}, markers), do: Enum.all?(cells, &is_marker?(&1, markers))
 
-  defp is_marker?(markers, value), do: Enum.member?(markers, value)
+  defp is_marker?(value, markers), do: Enum.member?(markers, value)
 end

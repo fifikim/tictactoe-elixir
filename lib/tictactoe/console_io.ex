@@ -1,6 +1,7 @@
 defmodule TicTacToe.ConsoleIO do
   alias TicTacToe.Board
   alias TicTacToe.Game
+  alias TicTacToe.Player
 
   def input, do: String.trim(IO.gets(""))
 
@@ -16,13 +17,22 @@ defmodule TicTacToe.ConsoleIO do
     |> output()
   end
 
-  def selection_error(:char, size),
-    do: output("Invalid selection! Please select a number between 1 and #{size}:")
+  def turn_message(%Player{name: name, type: type}) when type == :human,
+    do: output("#{name}'s turn:")
 
-  def selection_error(:occupied, _size),
-    do: output("Invalid selection! Please select a free space:")
+  def selection_error(reason, cells),
+    do:
+      output(
+        "Invalid selection: #{reason}! Please select a number between 1 and #{List.last(cells)}:"
+      )
 
-  def game_won(name), do: output("Game over! #{name} wins!")
+  def selection_error(reason, _cells),
+    do: output("Invalid selection: #{reason}! Please select a free space:")
+
+  def game_won(%Board{} = board, %Player{name: name}) do
+    display_board(board)
+    output("Game over! #{name} wins!")
+  end
 
   def goodbye, do: output("Thanks for playing! Goodbye.")
 
@@ -56,15 +66,16 @@ defmodule TicTacToe.ConsoleIO do
 
   defp build_instructions(%Game{
          board: %Board{cells: cells},
-         players: %{player1: player1, player2: player2},
-         size: size
+         current_player: current_player,
+         next_player: next_player
        }) do
     length = row_length(cells)
+    size = List.last(cells)
 
     """
     Instructions
     Enter the number (1-#{size}) of the space on the board where you want to move.
-    #{player1.name} moves first and marks their spaces with an "#{player1.marker}". #{player2.name} marks with an "#{player2.marker}".
+    #{current_player.name} moves first and marks their spaces with an "#{current_player.marker}". #{next_player.name} marks with an "#{next_player.marker}".
     To win, claim #{length} adjacent spaces in a horizontal, vertical, or diagonal line.
     If there are no free spaces and no player has won, the game will end in a draw.
     """

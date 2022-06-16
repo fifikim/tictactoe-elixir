@@ -32,28 +32,38 @@ defmodule TicTacToe.ConsoleIOTest do
              "Instructions\nEnter the number (1-9) of the space on the board where you want to move.\nPlayer 1 moves first and marks their spaces with an \"X\". Player 2 marks with an \"O\".\nTo win, claim 3 adjacent spaces in a horizontal, vertical, or diagonal line.\nIf there are no free spaces and no player has won, the game will end in a draw.\n\n"
   end
 
-  test "ConsoleIO.selection_error/2 prints the 'invalid move (character)' message to the terminal" do
+  test "ConsoleIO.turn_message/1 prints a message prompting the player to take a turn if player_type is :human" do
     assert capture_io(fn ->
-             board_size = 9
-             ConsoleIO.selection_error(:char, board_size)
-           end) ==
-             "Invalid selection! Please select a number between 1 and 9:\n"
+             player = TestHelpers.default_player1()
+             ConsoleIO.turn_message(player)
+           end) == "Player 1's turn:\n"
   end
 
-  test "ConsoleIO.selection_error/1 prints the 'invalid move (occupied)' message to the terminal" do
+  test "ConsoleIO.selection_error/2 prints the 'Invalid selection: invalid character' message to the terminal" do
     assert capture_io(fn ->
-             board_size = 9
-             ConsoleIO.selection_error(:occupied, board_size)
+             board_cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+             reason = "invalid character"
+             ConsoleIO.selection_error(reason, board_cells)
            end) ==
-             "Invalid selection! Please select a free space:\n"
+             "Invalid selection: invalid character! Please select a number between 1 and 9:\n"
   end
 
-  test "ConsoleIO.game_won/1 takes in a winner's name & prints the 'game won' message to the terminal" do
+  test "ConsoleIO.selection_error/1 prints the 'Invalid selection: cell is occupied' message to the terminal" do
     assert capture_io(fn ->
-             winner = "Test Player"
-             ConsoleIO.game_won(winner)
+             board_cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+             reason = "cell is occupied"
+             ConsoleIO.selection_error(reason, board_cells)
            end) ==
-             "Game over! Test Player wins!\n"
+             "Invalid selection: cell is occupied! Please select a number between 1 and 9:\n"
+  end
+
+  test "ConsoleIO.game_won/2 prints the board and 'game won' message to the terminal" do
+    assert capture_io(fn ->
+             board = TestHelpers.winning_board()
+             winner = TestHelpers.default_player1()
+             ConsoleIO.game_won(board, winner)
+           end) ==
+             " X | X | X \n---|---|---\n O | 5 | O \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
   end
 
   test "ConsoleIO.goodbye/0 prints the 'goodbye' message to the terminal" do

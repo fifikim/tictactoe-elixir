@@ -2,16 +2,30 @@ defmodule TicTacToe.Validation do
   alias TicTacToe.Board
   alias TicTacToe.Game
 
-  def check_selection(selection, %Game{board: %Board{} = board, markers: markers} = game) do
+  def check_selection(
+        selection,
+        %Game{board: %Board{} = board, current_player: current_player, next_player: next_player} =
+          game
+      ) do
     cond do
-      invalid_character?(selection, game) -> {:char, game}
-      Board.space_occupied?(to_index(selection), board, markers) -> {:occupied, game}
-      true -> {:ok, to_index(selection)}
+      invalid_character?(selection, game) ->
+        {:error, "invalid character"}
+
+      Board.space_occupied?(to_index(selection), board, [
+        current_player.marker,
+        next_player.marker
+      ]) ->
+        {:error, "cell is occupied"}
+
+      true ->
+        {:ok, to_index(selection)}
     end
   end
 
-  defp invalid_character?(input, %Game{size: size}) do
-    Regex.compile("^[1-#{size}]$")
+  defp invalid_character?(input, %Game{board: %Board{cells: cells}}) do
+    cells
+    |> List.last()
+    |> then(&Regex.compile("^[1-#{&1}]$"))
     |> elem(1)
     |> Regex.match?(input)
     |> Kernel.not()

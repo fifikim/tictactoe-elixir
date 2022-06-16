@@ -6,28 +6,16 @@ defmodule TicTacToe.CLI.Main do
 
   @default_game %Game{
     board: %Board{cells: Enum.to_list(1..9)},
-    players: %{
-      player1: %Player{
-        marker: "X",
-        name: "Player 1",
-        turn_msg: "Player 1's turn:",
-        type: :human
-      },
-      player2: %Player{
-        marker: "O",
-        name: "Player 2",
-        turn_msg: "Player 2's turn:",
-        type: :human
-      }
-    },
     current_player: %Player{
       marker: "X",
       name: "Player 1",
-      turn_msg: "Player 1's turn:",
       type: :human
     },
-    markers: ["X", "O"],
-    size: 9
+    next_player: %Player{
+      marker: "O",
+      name: "Player 2",
+      type: :human
+    }
   }
 
   def start do

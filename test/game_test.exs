@@ -7,10 +7,8 @@ defmodule TicTacToe.GameTest do
     assert %Game{} == %Game{
              board: nil,
              current_player: nil,
-             game_over: false,
-             markers: nil,
-             players: nil,
-             size: nil
+             next_player: nil,
+             game_over: false
            }
   end
 

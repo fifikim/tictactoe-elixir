@@ -7,27 +7,31 @@ defmodule TicTacToe.ValidationTest do
     assert Validation.check_selection(selection, TestHelpers.new_game()) == {:ok, 0}
   end
 
-  test "Validation.check_selection/2 returns {:char, game} when input is a not an integer" do
+  test "Validation.check_selection/2 returns {:error, \"invalid selection\"} when input is a not an integer" do
     selection = "t"
-    {error, _game} = Validation.check_selection(selection, TestHelpers.new_game())
-    assert error == :char
+
+    assert Validation.check_selection(selection, TestHelpers.new_game()) ==
+             {:error, "invalid character"}
   end
 
-  test "Validation.check_selection/2 returns {:char, game} when input is an out-of-range number" do
+  test "Validation.check_selection/2 returns {:error, \"invalid selection\"} when input is an out-of-range number" do
     selection = "100"
-    {error, _game} = Validation.check_selection(selection, TestHelpers.new_game())
-    assert error == :char
+
+    assert Validation.check_selection(selection, TestHelpers.new_game()) ==
+             {:error, "invalid character"}
   end
 
-  test "Validation.check_selection/2 returns {:char, game} when input is empty" do
+  test "Validation.check_selection/2 returns {:error, \"invalid selection\"} when input is empty" do
     selection = ""
-    {error, _game} = Validation.check_selection(selection, TestHelpers.new_game())
-    assert error == :char
+
+    assert Validation.check_selection(selection, TestHelpers.new_game()) ==
+             {:error, "invalid character"}
   end
 
-  test "Validation.check_selection/2 returns {:occupied, game} when selected space is occupied" do
+  test "Validation.check_selection/2 returns {:error, \"cell is occupied\"} when selected cell is occupied" do
     selection = "1"
-    {error, _game} = Validation.check_selection(selection, TestHelpers.in_progress_game())
-    assert error == :occupied
+
+    assert Validation.check_selection(selection, TestHelpers.in_progress_game()) ==
+             {:error, "cell is occupied"}
   end
 end

@@ -7,7 +7,6 @@ defmodule TicTacToe.PlayerTest do
     assert %Player{} == %Player{
              marker: nil,
              name: nil,
-             turn_msg: nil,
              type: nil
            }
   end

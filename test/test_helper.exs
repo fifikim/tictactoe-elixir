@@ -9,13 +9,14 @@ defmodule TestHelpers do
 
   def in_progress_board, do: %Board{cells: ["X", "O", "X", "O", "X", "O", "X", "O", 9]}
 
+  def winning_board, do: %Board{cells: ["X", "X", "X", "O", 5, "O", 7, 8, 9]}
+
   def full_board, do: %Board{cells: ["X", "X", "X", "X", "X", "O", "O", "O", "O"]}
 
   def default_player1 do
     %Player{
       marker: "X",
       name: "Player 1",
-      turn_msg: "Player 1's turn:",
       type: :human
     }
   end
@@ -24,7 +25,6 @@ defmodule TestHelpers do
     %Player{
       marker: "O",
       name: "Player 2",
-      turn_msg: "Player 2's turn:",
       type: :human
     }
   end
@@ -33,10 +33,8 @@ defmodule TestHelpers do
     %Game{
       board: new_board(),
       current_player: default_player1(),
-      game_over: false,
-      markers: ["X", "O"],
-      players: %{player1: default_player1(), player2: default_player2()},
-      size: 9
+      next_player: default_player2(),
+      game_over: false
     }
   end
 
@@ -44,10 +42,8 @@ defmodule TestHelpers do
     %Game{
       board: in_progress_board(),
       current_player: default_player1(),
-      game_over: false,
-      markers: ["X", "O"],
-      players: %{player1: default_player1(), player2: default_player2()},
-      size: 9
+      next_player: default_player2(),
+      game_over: false
     }
   end
 
@@ -55,10 +51,8 @@ defmodule TestHelpers do
     %Game{
       board: full_board(),
       current_player: default_player1(),
-      game_over: true,
-      markers: ["X", "O"],
-      players: %{player1: default_player1(), player2: default_player2()},
-      size: 9
+      next_player: default_player2(),
+      game_over: true
     }
   end
 end
