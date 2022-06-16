@@ -17,8 +17,7 @@ defmodule TicTacToe.ConsoleIO do
     |> output()
   end
 
-  def turn_message(%Player{name: name, type: type}) when type == :human,
-    do: output("#{name}'s turn:")
+  def turn_message(%Player{name: name, type: :human}), do: output("#{name}'s turn:")
 
   def selection_error(reason),
     do: output("Invalid selection! #{reason} Please try again:")
