@@ -2,7 +2,7 @@ defmodule TicTacToe.ConsoleIO do
   alias TicTacToe.Board
   alias TicTacToe.Game
 
-  def input, do: IO.gets("") |> String.trim()
+  def input, do: String.trim(IO.gets(""))
 
   def output(message), do: IO.puts(message)
 
