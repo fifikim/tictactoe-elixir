@@ -4,11 +4,12 @@ defmodule TicTacToe.Game do
   alias TicTacToe.Game
   alias TicTacToe.Player
   alias TicTacToe.Validation
+  alias TicTacToe.WinFinder
 
   defstruct board: nil,
             current_player: nil,
             next_player: nil,
-            game_over: false
+            game_status: :active
 
   def play(%Game{} = game) do
     ConsoleIO.new_game()
@@ -18,10 +19,16 @@ defmodule TicTacToe.Game do
 
   defp take_turn(%Game{
          board: board,
-         current_player: current_player,
-         game_over: true
+         next_player: %Player{name: name},
+         game_status: :won
        }),
-       do: ConsoleIO.game_won(%Board{} = board, current_player)
+       do: ConsoleIO.game_won(%Board{} = board, name)
+
+  defp take_turn(%Game{
+         board: board,
+         game_status: :drawn
+       }),
+       do: ConsoleIO.game_drawn(%Board{} = board)
 
   defp take_turn(
          %Game{
@@ -63,9 +70,20 @@ defmodule TicTacToe.Game do
       | board: new_board,
         current_player: next_player,
         next_player: current_player,
-        game_over: check_over(new_board, [current_player_marker, next_player_marker])
+        game_status:
+          check_over(new_board, current_player, [current_player_marker, next_player_marker])
     }
   end
 
-  defp check_over(%Board{} = board, markers), do: Board.full?(board, markers)
+  defp check_over(
+         %Board{} = board,
+         %Player{marker: current_player_marker},
+         markers
+       ) do
+    cond do
+      WinFinder.game_won?(board, current_player_marker) -> :won
+      Board.full?(board, markers) -> :drawn
+      true -> :active
+    end
+  end
 end

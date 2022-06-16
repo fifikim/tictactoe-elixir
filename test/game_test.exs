@@ -8,7 +8,7 @@ defmodule TicTacToe.GameTest do
              board: nil,
              current_player: nil,
              next_player: nil,
-             game_over: false
+             game_status: :active
            }
   end
 

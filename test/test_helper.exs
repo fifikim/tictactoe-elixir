@@ -34,7 +34,7 @@ defmodule TestHelpers do
       board: new_board(),
       current_player: default_player1(),
       next_player: default_player2(),
-      game_over: false
+      game_status: :active
     }
   end
 
@@ -43,7 +43,7 @@ defmodule TestHelpers do
       board: in_progress_board(),
       current_player: default_player1(),
       next_player: default_player2(),
-      game_over: false
+      game_status: :active
     }
   end
 
@@ -52,7 +52,7 @@ defmodule TestHelpers do
       board: full_board(),
       current_player: default_player1(),
       next_player: default_player2(),
-      game_over: true
+      game_status: :drawn
     }
   end
 end
