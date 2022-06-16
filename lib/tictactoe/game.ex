@@ -48,8 +48,8 @@ defmodule TicTacToe.Game do
 
   defp record_or_reprompt({:ok, index}, _game), do: index
 
-  defp record_or_reprompt({:error, reason}, %Game{board: %Board{cells: cells}} = game) do
-    ConsoleIO.selection_error(reason, cells)
+  defp record_or_reprompt({:error, reason}, %Game{} = game) do
+    ConsoleIO.selection_error(reason)
     start_turn(game)
   end
 

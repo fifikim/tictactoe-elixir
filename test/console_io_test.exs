@@ -41,20 +41,18 @@ defmodule TicTacToe.ConsoleIOTest do
 
   test "ConsoleIO.selection_error/2 prints the 'Invalid selection: invalid character' message to the terminal" do
     assert capture_io(fn ->
-             board_cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-             reason = "invalid character"
-             ConsoleIO.selection_error(reason, board_cells)
+             reason = "You must select a number between 1 and 9."
+             ConsoleIO.selection_error(reason)
            end) ==
-             "Invalid selection: invalid character! Please select a number between 1 and 9:\n"
+             "Invalid selection! You must select a number between 1 and 9. Please try again:\n"
   end
 
   test "ConsoleIO.selection_error/1 prints the 'Invalid selection: cell is occupied' message to the terminal" do
     assert capture_io(fn ->
-             board_cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-             reason = "cell is occupied"
-             ConsoleIO.selection_error(reason, board_cells)
+             reason = "That cell has already been taken."
+             ConsoleIO.selection_error(reason)
            end) ==
-             "Invalid selection: cell is occupied! Please select a number between 1 and 9:\n"
+             "Invalid selection! That cell has already been taken. Please try again:\n"
   end
 
   test "ConsoleIO.game_won/2 prints the board and 'game won' message to the terminal" do

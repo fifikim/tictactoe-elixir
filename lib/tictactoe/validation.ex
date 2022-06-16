@@ -4,18 +4,21 @@ defmodule TicTacToe.Validation do
 
   def check_selection(
         selection,
-        %Game{board: %Board{} = board, current_player: current_player, next_player: next_player} =
-          game
+        %Game{
+          board: %Board{cells: cells} = board,
+          current_player: current_player,
+          next_player: next_player
+        } = game
       ) do
     cond do
       invalid_character?(selection, game) ->
-        {:error, "invalid character"}
+        {:error, "You must select a number between 1 and #{List.last(cells)}."}
 
       Board.space_occupied?(to_index(selection), board, [
         current_player.marker,
         next_player.marker
       ]) ->
-        {:error, "cell is occupied"}
+        {:error, "That cell has already been taken."}
 
       true ->
         {:ok, to_index(selection)}

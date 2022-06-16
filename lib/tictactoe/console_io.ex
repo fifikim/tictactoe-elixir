@@ -20,14 +20,8 @@ defmodule TicTacToe.ConsoleIO do
   def turn_message(%Player{name: name, type: type}) when type == :human,
     do: output("#{name}'s turn:")
 
-  def selection_error(reason, cells),
-    do:
-      output(
-        "Invalid selection: #{reason}! Please select a number between 1 and #{List.last(cells)}:"
-      )
-
-  def selection_error(reason, _cells),
-    do: output("Invalid selection: #{reason}! Please select a free space:")
+  def selection_error(reason),
+    do: output("Invalid selection! #{reason} Please try again:")
 
   def game_won(%Board{} = board, %Player{name: name}) do
     display_board(board)
