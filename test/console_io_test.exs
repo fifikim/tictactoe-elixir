@@ -57,17 +57,16 @@ defmodule TicTacToe.ConsoleIOTest do
 
   test "ConsoleIO.game_won/2 prints the board and 'game won' message to the terminal" do
     assert capture_io(fn ->
-             board = TestHelpers.winning_board()
-             winner = "Player 1"
-             ConsoleIO.game_won(board, winner)
+             board = TestHelpers.place_markers([1, 2, 3], "X", 9)
+             ConsoleIO.game_won(board, "Player 1")
            end) ==
-             " X | X | X \n---|---|---\n O | 5 | O \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
+             " X | X | X \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
   end
 
-  test "ConsoleIO.game_drawn/1 prints the board and 'game won' message to the terminal" do
+  test "ConsoleIO.game_drawn/1 prints the board and \"it's a draw\" message to the terminal" do
     assert capture_io(fn ->
              board = TestHelpers.full_board()
-             ConsoleIO.game_drawn(board)
+             ConsoleIO.game_drawn(board.cells)
            end) ==
              " X | X | X \n---|---|---\n X | X | O \n---|---|---\n O | O | O \n\nGame over! It's a draw!\n"
   end
@@ -83,7 +82,7 @@ defmodule TicTacToe.ConsoleIOTest do
     board = TestHelpers.new_board()
 
     assert capture_io(fn ->
-             ConsoleIO.display_board(board)
+             ConsoleIO.display_board(board.cells)
            end) == " 1 | 2 | 3 \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n\n"
   end
 end

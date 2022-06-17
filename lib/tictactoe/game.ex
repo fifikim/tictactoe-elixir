@@ -18,25 +18,25 @@ defmodule TicTacToe.Game do
   end
 
   defp take_turn(%Game{
-         board: board,
+         board: %Board{cells: cells},
          next_player: %Player{name: name},
          game_status: :won
        }),
-       do: ConsoleIO.game_won(%Board{} = board, name)
+       do: ConsoleIO.game_won(cells, name)
 
   defp take_turn(%Game{
-         board: board,
+         board: %Board{cells: cells},
          game_status: :drawn
        }),
-       do: ConsoleIO.game_drawn(%Board{} = board)
+       do: ConsoleIO.game_drawn(cells)
 
   defp take_turn(
          %Game{
-           board: board,
+           board: %Board{cells: cells} = board,
            current_player: %Player{marker: current_player_marker} = current_player
          } = game
        ) do
-    ConsoleIO.display_board(board)
+    ConsoleIO.display_board(cells)
     ConsoleIO.turn_message(current_player)
 
     start_turn(game)
@@ -59,7 +59,7 @@ defmodule TicTacToe.Game do
   end
 
   defp end_turn(
-         %Board{} = new_board,
+         %Board{} = updated_board,
          %Game{
            current_player: %Player{marker: current_player_marker} = current_player,
            next_player: %Player{marker: next_player_marker} = next_player
@@ -67,21 +67,21 @@ defmodule TicTacToe.Game do
        ) do
     %Game{
       game
-      | board: new_board,
+      | board: updated_board,
         current_player: next_player,
         next_player: current_player,
         game_status:
-          check_over(new_board, current_player, [current_player_marker, next_player_marker])
+          check_over(updated_board, current_player, [current_player_marker, next_player_marker])
     }
   end
 
   defp check_over(
-         %Board{} = board,
+         %Board{cells: cells} = board,
          %Player{marker: current_player_marker},
          markers
        ) do
     cond do
-      WinFinder.game_won?(board, current_player_marker) -> :won
+      WinFinder.game_won?(cells, current_player_marker) -> :won
       Board.full?(board, markers) -> :drawn
       true -> :active
     end

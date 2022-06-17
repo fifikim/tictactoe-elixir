@@ -22,33 +22,26 @@ defmodule TicTacToe.ConsoleIO do
   def selection_error(reason),
     do: output("Invalid selection! #{reason} Please try again:")
 
-  def game_won(%Board{} = board, name) do
-    display_board(board)
+  def game_won(cells, name) do
+    display_board(cells)
     output("Game over! #{name} wins!")
   end
 
-  def game_drawn(%Board{} = board) do
-    display_board(board)
+  def game_drawn(cells) do
+    display_board(cells)
     output("Game over! It's a draw!")
   end
 
   def goodbye, do: output("Thanks for playing! Goodbye.")
 
-  def display_board(%Board{cells: cells}) do
-    length = row_length(cells)
+  def display_board(cells) do
+    length = Board.row_length(cells)
 
     cells
     |> Enum.chunk_every(length)
     |> Enum.map_join(horizontal_line(length), &format_row(&1))
     |> then(&"#{&1}\n")
     |> output()
-  end
-
-  defp row_length(cells) do
-    cells
-    |> length()
-    |> :math.sqrt()
-    |> trunc()
   end
 
   defp format_row(row_array), do: Enum.map_join(row_array, "|", &format_cell(&1))
@@ -67,7 +60,7 @@ defmodule TicTacToe.ConsoleIO do
          current_player: %Player{marker: current_player_marker, name: current_player_name},
          next_player: %Player{marker: next_player_marker, name: next_player_name}
        }) do
-    length = row_length(cells)
+    length = Board.row_length(cells)
     size = Enum.count(cells)
 
     """

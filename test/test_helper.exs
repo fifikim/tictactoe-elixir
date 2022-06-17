@@ -6,11 +6,6 @@ defmodule TestHelpers do
   alias TicTacToe.Player
 
   def new_board, do: %Board{cells: [1, 2, 3, 4, 5, 6, 7, 8, 9]}
-
-  def in_progress_board, do: %Board{cells: ["X", "O", "X", "O", "X", "O", "X", "O", 9]}
-
-  def winning_board, do: %Board{cells: ["X", "X", "X", "O", 5, "O", 7, 8, 9]}
-
   def full_board, do: %Board{cells: ["X", "X", "X", "X", "X", "O", "O", "O", "O"]}
 
   def default_player1 do
@@ -40,19 +35,18 @@ defmodule TestHelpers do
 
   def in_progress_game do
     %Game{
-      board: in_progress_board(),
+      board: full_board(),
       current_player: default_player1(),
       next_player: default_player2(),
       game_status: :active
     }
   end
 
-  def full_game do
-    %Game{
-      board: full_board(),
-      current_player: default_player1(),
-      next_player: default_player2(),
-      game_status: :drawn
-    }
+  def place_markers(cell_nums, marker, size) do
+    board = Enum.to_list(1..size)
+
+    cell_nums
+    |> Enum.map(&(&1 - 1))
+    |> Enum.reduce(board, &List.replace_at(&2, &1, marker))
   end
 end

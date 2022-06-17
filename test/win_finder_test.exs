@@ -2,16 +2,30 @@ defmodule TicTacToe.WinFinderTest do
   alias TicTacToe.WinFinder
   use ExUnit.Case
 
-  # test all winning combinations
-  test "WinFinder.game_won?/2 returns true when the board contains a winning combination" do
-    board = TestHelpers.winning_board()
-    marker = "X"
-    assert WinFinder.game_won?(board, marker) == true
+  @winning_combos3x3 [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7]
+  ]
+
+  for combo <- @winning_combos3x3 do
+    test "WinFinder.game_won?/2 returns true when the board contains markers at #{combo}" do
+      game_won? =
+        unquote(combo)
+        |> TestHelpers.place_markers("X", 9)
+        |> WinFinder.game_won?("X")
+
+      assert game_won? == true
+    end
   end
 
   test "WinFinder.game_won?/2 returns false when the board does not contain a winning combination" do
     board = TestHelpers.new_board()
-    marker = "X"
-    assert WinFinder.game_won?(board, marker) == false
+    assert WinFinder.game_won?(board.cells, "X") == false
   end
 end

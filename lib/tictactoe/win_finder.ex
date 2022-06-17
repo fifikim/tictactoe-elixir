@@ -1,24 +1,27 @@
 defmodule TicTacToe.WinFinder do
   alias TicTacToe.Board
 
-  def game_won?(%Board{cells: cells}, marker) do
+  def game_won?(cells, marker) do
     cells
     |> get_combos()
-    |> Enum.any?(&combo_in_board?(&1, cells, marker))
+    |> Enum.any?(&combo_found?(&1, cells, marker))
   end
 
-  defp combo_in_board?(combination, cells, marker),
-    do: Enum.all?(combination, &marker_at_index?(&1, cells, marker))
+  defp combo_found?(combination, cells, marker),
+    do: Enum.all?(combination, &marker_at_index?(&1 - 1, cells, marker))
 
   defp marker_at_index?(index, cells, marker), do: Enum.at(cells, index) == marker
 
   defp get_combos(cells) do
-    max = Enum.count(cells)
-    array = Enum.to_list(0..(max - 1))
-    get_rows(array) ++ get_columns(array) ++ get_diagonals(array)
+    cell_nums =
+      cells
+      |> Enum.count()
+      |> then(&Enum.to_list(1..&1))
+
+    get_rows(cell_nums) ++ get_columns(cell_nums) ++ get_diagonals(cell_nums)
   end
 
-  defp get_rows(cells), do: Enum.chunk_every(cells, row_length(cells))
+  defp get_rows(cells), do: Enum.chunk_every(cells, Board.row_length(cells))
 
   defp get_columns(cells) do
     cells
@@ -29,7 +32,7 @@ defmodule TicTacToe.WinFinder do
 
   defp get_diagonals(cells) do
     max = Enum.count(cells)
-    length = row_length(cells)
+    length = Board.row_length(cells)
     first = down_and_right(1, max, length + 1)
     second = down_and_left(length, max, length - 1)
 
@@ -45,11 +48,4 @@ defmodule TicTacToe.WinFinder do
 
   defp down_and_left(num, max, distance),
     do: [num] ++ down_and_left(num + distance, max, distance)
-
-  defp row_length(cells) do
-    cells
-    |> length()
-    |> :math.sqrt()
-    |> trunc()
-  end
 end
