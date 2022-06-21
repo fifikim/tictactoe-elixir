@@ -13,19 +13,21 @@ defmodule TicTacToe.WinFinderTest do
     [3, 5, 7]
   ]
 
-  for combo <- @winning_combos3x3 do
-    test "WinFinder.game_won?/2 returns true when the board contains markers at #{combo}" do
-      game_won? =
-        unquote(combo)
-        |> TestHelpers.place_markers("X", 9)
-        |> WinFinder.game_won?("X")
+  describe "WinFinder.game_won?/2" do
+    for combo <- @winning_combos3x3 do
+      test "returns true when the board contains markers at #{combo}" do
+        game_won? =
+          unquote(combo)
+          |> TestHelpers.place_markers("X", 9)
+          |> WinFinder.game_won?("X")
 
-      assert game_won? == true
+        assert game_won? == true
+      end
     end
-  end
 
-  test "WinFinder.game_won?/2 returns false when the board does not contain a winning combination" do
-    board = TestHelpers.new_board()
-    assert WinFinder.game_won?(board.cells, "X") == false
+    test "returns false when the board does not contain a winning combination" do
+      board = TestHelpers.new_board()
+      assert WinFinder.game_won?(board.cells, "X") == false
+    end
   end
 end

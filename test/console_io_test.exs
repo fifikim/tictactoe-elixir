@@ -39,7 +39,7 @@ defmodule TicTacToe.ConsoleIOTest do
            end) == "Player 1's turn:\n"
   end
 
-  test "ConsoleIO.selection_error/2 prints the 'Invalid selection: invalid character' message to the terminal" do
+  test "ConsoleIO.selection_error/1 prints the 'Invalid selection: invalid character' message to the terminal" do
     assert capture_io(fn ->
              reason = "You must select a number between 1 and 9."
              ConsoleIO.selection_error(reason)
