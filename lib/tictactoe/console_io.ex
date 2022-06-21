@@ -22,12 +22,12 @@ defmodule TicTacToe.ConsoleIO do
   def selection_error(reason),
     do: output("Invalid selection! #{reason} Please try again:")
 
-  def game_won(cells, name) do
+  def game_over(:won, cells, name) do
     display_board(cells)
     output("Game over! #{name} wins!")
   end
 
-  def game_drawn(cells) do
+  def game_over(:draw, cells) do
     display_board(cells)
     output("Game over! It's a draw!")
   end

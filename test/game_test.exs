@@ -9,8 +9,7 @@ defmodule TicTacToe.GameTest do
     assert %Game{} == %Game{
              board: nil,
              current_player: nil,
-             next_player: nil,
-             game_status: :active
+             next_player: nil
            }
   end
 

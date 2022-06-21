@@ -28,8 +28,7 @@ defmodule TestHelpers do
     %Game{
       board: new_board(),
       current_player: default_player1(),
-      next_player: default_player2(),
-      game_status: :active
+      next_player: default_player2()
     }
   end
 
@@ -37,8 +36,7 @@ defmodule TestHelpers do
     %Game{
       board: full_board(),
       current_player: default_player1(),
-      next_player: default_player2(),
-      game_status: :active
+      next_player: default_player2()
     }
   end
 

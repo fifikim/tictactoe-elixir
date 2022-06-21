@@ -55,18 +55,18 @@ defmodule TicTacToe.ConsoleIOTest do
              "Invalid selection! That cell has already been taken. Please try again:\n"
   end
 
-  test "ConsoleIO.game_won/2 prints the board and 'game won' message to the terminal" do
+  test "ConsoleIO.game_over/3 prints the board and \"game won\" message to the terminal" do
     assert capture_io(fn ->
              board = TestHelpers.place_markers([1, 2, 3], "X", 9)
-             ConsoleIO.game_won(board, "Player 1")
+             ConsoleIO.game_over(:won, board, "Player 1")
            end) ==
              " X | X | X \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
   end
 
-  test "ConsoleIO.game_drawn/1 prints the board and \"it's a draw\" message to the terminal" do
+  test "ConsoleIO.game_over/2 prints the board and \"it's a draw\" message to the terminal" do
     assert capture_io(fn ->
              board = TestHelpers.full_board()
-             ConsoleIO.game_drawn(board.cells)
+             ConsoleIO.game_over(:draw, board.cells)
            end) ==
              " X | X | X \n---|---|---\n X | X | O \n---|---|---\n O | O | O \n\nGame over! It's a draw!\n"
   end
