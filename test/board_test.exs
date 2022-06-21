@@ -32,4 +32,10 @@ defmodule TicTacToe.BoardTest do
       assert Board.full?(empty_board, ["X", "O"]) == false
     end
   end
+
+  test "Board.row_length/1 returns the length of a row in a board with given number of cells" do
+    board = TestHelpers.new_board()
+    expected_row_length = 3
+    assert Board.row_length(board.cells) == expected_row_length
+  end
 end
