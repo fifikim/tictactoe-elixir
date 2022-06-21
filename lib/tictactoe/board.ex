@@ -18,4 +18,11 @@ defmodule TicTacToe.Board do
   def full?(%Board{cells: cells}, markers), do: Enum.all?(cells, &is_marker?(&1, markers))
 
   defp is_marker?(value, markers), do: Enum.member?(markers, value)
+
+  def row_length(cells) do
+    cells
+    |> length()
+    |> :math.sqrt()
+    |> trunc()
+  end
 end

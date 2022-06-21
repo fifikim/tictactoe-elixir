@@ -39,7 +39,7 @@ defmodule TicTacToe.ConsoleIOTest do
            end) == "Player 1's turn:\n"
   end
 
-  test "ConsoleIO.selection_error/2 prints the 'Invalid selection: invalid character' message to the terminal" do
+  test "ConsoleIO.selection_error/1 prints the 'Invalid selection: invalid character' message to the terminal" do
     assert capture_io(fn ->
              reason = "You must select a number between 1 and 9."
              ConsoleIO.selection_error(reason)
@@ -55,13 +55,20 @@ defmodule TicTacToe.ConsoleIOTest do
              "Invalid selection! That cell has already been taken. Please try again:\n"
   end
 
-  test "ConsoleIO.game_won/2 prints the board and 'game won' message to the terminal" do
+  test "ConsoleIO.game_over/3 prints the board and \"game won\" message to the terminal" do
     assert capture_io(fn ->
-             board = TestHelpers.winning_board()
-             winner = TestHelpers.default_player1()
-             ConsoleIO.game_won(board, winner)
+             board = TestHelpers.place_markers([1, 2, 3], "X", 9)
+             ConsoleIO.game_over(:won, board, "Player 1")
            end) ==
-             " X | X | X \n---|---|---\n O | 5 | O \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
+             " X | X | X \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n\nGame over! Player 1 wins!\n"
+  end
+
+  test "ConsoleIO.game_over/2 prints the board and \"it's a draw\" message to the terminal" do
+    assert capture_io(fn ->
+             board = TestHelpers.full_board()
+             ConsoleIO.game_over(:draw, board.cells)
+           end) ==
+             " X | X | X \n---|---|---\n X | X | O \n---|---|---\n O | O | O \n\nGame over! It's a draw!\n"
   end
 
   test "ConsoleIO.goodbye/0 prints the 'goodbye' message to the terminal" do
@@ -75,7 +82,7 @@ defmodule TicTacToe.ConsoleIOTest do
     board = TestHelpers.new_board()
 
     assert capture_io(fn ->
-             ConsoleIO.display_board(board)
+             ConsoleIO.display_board(board.cells)
            end) == " 1 | 2 | 3 \n---|---|---\n 4 | 5 | 6 \n---|---|---\n 7 | 8 | 9 \n\n"
   end
 end

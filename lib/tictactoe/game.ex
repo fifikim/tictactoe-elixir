@@ -4,11 +4,11 @@ defmodule TicTacToe.Game do
   alias TicTacToe.Game
   alias TicTacToe.Player
   alias TicTacToe.Validation
+  alias TicTacToe.WinFinder
 
   defstruct board: nil,
             current_player: nil,
-            next_player: nil,
-            game_over: false
+            next_player: nil
 
   def play(%Game{} = game) do
     ConsoleIO.new_game()
@@ -16,26 +16,18 @@ defmodule TicTacToe.Game do
     take_turn(game)
   end
 
-  defp take_turn(%Game{
-         board: board,
-         current_player: current_player,
-         game_over: true
-       }),
-       do: ConsoleIO.game_won(%Board{} = board, current_player)
-
   defp take_turn(
          %Game{
-           board: board,
+           board: %Board{cells: cells} = board,
            current_player: %Player{marker: current_player_marker} = current_player
          } = game
        ) do
-    ConsoleIO.display_board(board)
+    ConsoleIO.display_board(cells)
     ConsoleIO.turn_message(current_player)
 
     start_turn(game)
     |> Board.update(current_player_marker, board)
-    |> end_turn(game)
-    |> take_turn()
+    |> check_over(game)
   end
 
   defp start_turn(%Game{} = game) do
@@ -51,21 +43,28 @@ defmodule TicTacToe.Game do
     start_turn(game)
   end
 
-  defp end_turn(
-         %Board{} = new_board,
+  defp check_over(
+         %Board{cells: cells} = updated_board,
          %Game{
-           current_player: %Player{marker: current_player_marker} = current_player,
+           current_player:
+             %Player{marker: current_player_marker, name: current_player_name} = current_player,
            next_player: %Player{marker: next_player_marker} = next_player
          } = game
        ) do
-    %Game{
-      game
-      | board: new_board,
-        current_player: next_player,
-        next_player: current_player,
-        game_over: check_over(new_board, [current_player_marker, next_player_marker])
-    }
-  end
+    cond do
+      WinFinder.game_won?(cells, current_player_marker) ->
+        ConsoleIO.game_over(:won, cells, current_player_name)
 
-  defp check_over(%Board{} = board, markers), do: Board.full?(board, markers)
+      Board.full?(updated_board, [current_player_marker, next_player_marker]) ->
+        ConsoleIO.game_over(:draw, cells)
+
+      true ->
+        take_turn(%Game{
+          game
+          | board: updated_board,
+            current_player: next_player,
+            next_player: current_player
+        })
+    end
+  end
 end
