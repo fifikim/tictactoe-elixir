@@ -44,7 +44,7 @@ defmodule TicTacToe.Validation do
 
   defp invalid_character?(input, %Game{board: %Board{cells: cells}}) do
     cells
-    |> List.last()
+    |> Enum.count()
     |> then(&Regex.compile("^[1-#{&1}]$"))
     |> elem(1)
     |> Regex.match?(input)
