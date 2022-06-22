@@ -1,4 +1,4 @@
-defmodule TicTacToe.CLI.PlayerMenu do
+defmodule TicTacToe.CLI.GameConfig do
   alias TicTacToe.Board
   alias TicTacToe.ConsoleIO
   alias TicTacToe.Game
