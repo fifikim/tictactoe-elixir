@@ -18,7 +18,7 @@ defmodule TicTacToe.WinFinderTest do
       test "returns true when the board contains markers at #{combo}" do
         game_won? =
           unquote(combo)
-          |> TestHelpers.place_markers("X", 9)
+          |> TestHelpers.mock_board("X", 9)
           |> WinFinder.game_won?("X")
 
         assert game_won? == true
