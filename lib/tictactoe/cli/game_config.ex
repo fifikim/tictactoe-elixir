@@ -23,8 +23,22 @@ defmodule TicTacToe.CLI.GameConfig do
     board: %Board{cells: Enum.to_list(1..9)},
     current_player: %Player{
       marker: "X",
-      name: "Player 1 (Computer)",
+      name: "Player 1 (Lazy Computer)",
       type: :ai
+    },
+    next_player: %Player{
+      marker: "O",
+      name: "Player 2",
+      type: :human
+    }
+  }
+
+  @unbeatable_game %Game{
+    board: %Board{cells: Enum.to_list(1..9)},
+    current_player: %Player{
+      marker: "X",
+      name: "Player 1 (Smart Computer)",
+      type: :unbeatable_ai
     },
     next_player: %Player{
       marker: "O",
@@ -35,7 +49,8 @@ defmodule TicTacToe.CLI.GameConfig do
 
   @player_types [
     {"Another player", @p2p_game},
-    {"Computer", @ai_game}
+    {"Lazy Computer", @ai_game},
+    {"Smart Computer", @unbeatable_game}
   ]
 
   def select_opponent do

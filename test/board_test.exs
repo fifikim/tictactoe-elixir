@@ -19,24 +19,24 @@ defmodule TicTacToe.BoardTest do
   describe "Board.space_occupied?/3" do
     test "returns true if a space is occupied" do
       full_board = TestHelpers.full_board()
-      assert Board.space_occupied?(0, full_board, ["X", "O"]) == true
+      assert Board.space_occupied?(0, full_board.cells, ["X", "O"]) == true
     end
 
     test "returns false if a space is not occupied" do
       empty_board = TestHelpers.new_board()
-      assert Board.space_occupied?(0, empty_board, ["X", "O"]) == false
+      assert Board.space_occupied?(0, empty_board.cells, ["X", "O"]) == false
     end
   end
 
   describe "Board.full?/2" do
     test "returns true if the board is full" do
       full_board = TestHelpers.full_board()
-      assert Board.full?(full_board, ["X", "O"]) == true
+      assert Board.full?(full_board.cells, ["X", "O"]) == true
     end
 
     test "returns false if the board is full" do
       empty_board = TestHelpers.new_board()
-      assert Board.full?(empty_board, ["X", "O"]) == false
+      assert Board.full?(empty_board.cells, ["X", "O"]) == false
     end
   end
 

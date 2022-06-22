@@ -64,7 +64,7 @@ defmodule TicTacToe.Game do
       WinFinder.game_won?(cells, current_player_marker) ->
         ConsoleIO.game_over(:won, cells, current_player_name)
 
-      Board.full?(updated_board, [current_player_marker, next_player_marker]) ->
+      Board.full?(cells, [current_player_marker, next_player_marker]) ->
         ConsoleIO.game_over(:draw, cells)
 
       true ->

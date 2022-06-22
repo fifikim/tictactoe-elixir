@@ -18,14 +18,22 @@ defmodule TestHelpers do
   def game_options,
     do: [
       {"Another player", new_game_p2p()},
-      {"Computer", new_game_ai()}
+      {"Lazy Computer", new_game_ai()},
+      {"Smart Computer", new_game_unbeatable()}
     ]
 
   def ai_player,
     do: %Player{
       marker: "X",
-      name: "Player 1 (Computer)",
+      name: "Player 1 (Lazy Computer)",
       type: :ai
+    }
+
+  def unbeatable_player,
+    do: %Player{
+      marker: "X",
+      name: "Player 1 (Smart Computer)",
+      type: :unbeatable_ai
     }
 
   def human_player1,
@@ -60,6 +68,13 @@ defmodule TestHelpers do
     do: %Game{
       board: new_board(),
       current_player: ai_player(),
+      next_player: human_player2()
+    }
+
+  def new_game_unbeatable,
+    do: %Game{
+      board: new_board(),
+      current_player: unbeatable_player(),
       next_player: human_player2()
     }
 
