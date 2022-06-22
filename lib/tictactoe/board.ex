@@ -3,7 +3,7 @@ defmodule TicTacToe.Board do
 
   defstruct cells: nil
 
-  def update(index, marker, %Board{cells: cells}) do
+  def update(index, marker, cells) do
     cells
     |> List.replace_at(index, marker)
     |> then(&%Board{cells: &1})

@@ -13,7 +13,7 @@ defmodule TicTacToe.BoardTest do
 
   test "Board.update/3 updates a board with a given marker at a given index" do
     board = TestHelpers.new_board()
-    assert Board.update(0, "X", board) == %Board{cells: ["X", 2, 3, 4, 5, 6, 7, 8, 9]}
+    assert Board.update(0, "X", board.cells) == %Board{cells: ["X", 2, 3, 4, 5, 6, 7, 8, 9]}
   end
 
   describe "Board.space_occupied?/3" do

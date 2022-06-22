@@ -40,7 +40,7 @@ defmodule TicTacToe.CLI.GameConfigTest do
     test "returns human vs smart ai game if user selects 3" do
       {%Game{current_player: %Player{type: opponent_type}}, _output} =
         assert with_io("3", fn ->
-                 PlayerMenu.select_opponent()
+                 GameConfig.select_opponent()
                end)
 
       assert opponent_type == :unbeatable_ai

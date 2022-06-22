@@ -18,7 +18,7 @@ defmodule TicTacToe.Game do
 
   defp take_turn(
          %Game{
-           board: %Board{cells: cells} = board,
+           board: %Board{cells: cells},
            current_player: %Player{marker: current_player_marker} = current_player
          } = game
        ) do
@@ -26,7 +26,7 @@ defmodule TicTacToe.Game do
     ConsoleIO.turn_message(current_player)
 
     move(game)
-    |> Board.update(current_player_marker, board)
+    |> Board.update(current_player_marker, cells)
     |> check_over(game)
   end
 
