@@ -29,7 +29,6 @@ defmodule TicTacToe.ConsoleIO do
 
   def turn_message(%Player{name: name, type: :ai}) do
     output("#{name} is processing its move:\n")
-    :timer.sleep(800)
   end
 
   def turn_message(%Player{name: name, type: :human}), do: output("#{name}'s move:")
