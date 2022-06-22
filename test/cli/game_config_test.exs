@@ -16,7 +16,7 @@ defmodule TicTacToe.CLI.GameConfigTest do
       assert capture_io("1", fn ->
                GameConfig.select_opponent()
              end) =~
-               "1 - Another player\n2 - Lazy Computer\n3 - Smart Computer"
+               "1 - Another player\n2 - Computer"
     end
 
     test "returns human vs human game if user selects 1" do
@@ -35,15 +35,6 @@ defmodule TicTacToe.CLI.GameConfigTest do
                end)
 
       assert opponent_type == :ai
-    end
-
-    test "returns human vs smart ai game if user selects 3" do
-      {%Game{current_player: %Player{type: opponent_type}}, _output} =
-        assert with_io("3", fn ->
-                 GameConfig.select_opponent()
-               end)
-
-      assert opponent_type == :unbeatable_ai
     end
 
     for {input, description} <- TestHelpers.invalid_inputs() do

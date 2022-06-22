@@ -48,7 +48,7 @@ defmodule TicTacToe.ConsoleIOTest do
       assert capture_io(fn ->
                ConsoleIO.player_menu(options)
              end) =~
-               "1 - Another player\n2 - Lazy Computer\n3 - Smart Computer"
+               "1 - Another player\n2 - Computer"
     end
   end
 
@@ -63,14 +63,7 @@ defmodule TicTacToe.ConsoleIOTest do
     assert capture_io(fn ->
              player = TestHelpers.ai_player()
              ConsoleIO.turn_message(player)
-           end) == "Player 1 (Lazy Computer) is processing its move:\n\n"
-  end
-
-  test "ConsoleIO.turn_message/1 prints a message indicating the computer is processing its move if player_type is :unbeatable_ai" do
-    assert capture_io(fn ->
-             player = TestHelpers.unbeatable_player()
-             ConsoleIO.turn_message(player)
-           end) == "Player 1 (Smart Computer) is processing its move:\n\n"
+           end) == "Player 1 (Computer) is processing its move:\n\n"
   end
 
   test "ConsoleIO.selection_error/1 prints the 'Invalid selection: invalid character' message to the terminal" do
