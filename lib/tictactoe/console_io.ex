@@ -27,11 +27,9 @@ defmodule TicTacToe.ConsoleIO do
     end
   end
 
-  def turn_message(%Player{name: name, type: :ai}) do
-    output("#{name} is processing its move:\n")
-  end
-
   def turn_message(%Player{name: name, type: :human}), do: output("#{name}'s move:")
+
+  def turn_message(%Player{name: name}), do: output("#{name} is processing its move:\n")
 
   def selection_error(reason),
     do: output("Invalid selection! #{reason} Please try again:")
