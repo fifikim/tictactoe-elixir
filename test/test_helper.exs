@@ -64,24 +64,19 @@ defmodule TestHelpers do
     }
 
   def mock_board(cell_nums, marker, size) do
-    board = Enum.to_list(1..size)
+    Enum.to_list(1..size)
+    |> add_moves(cell_nums, marker)
+  end
 
+  def mock_board([{player1_moves, player1_marker}, {player2_moves, player2_marker}], size) do
+    Enum.to_list(1..size)
+    |> add_moves(player1_moves, player1_marker)
+    |> add_moves(player2_moves, player2_marker)
+  end
+
+  defp add_moves(board, cell_nums, marker) do
     cell_nums
     |> Enum.map(&(&1 - 1))
     |> Enum.reduce(board, &List.replace_at(&2, &1, marker))
-  end
-
-  # need to refactor this
-  def mock_board([{player1_moves, player1_marker}, {player2_moves, player2_marker}], size) do
-    board = Enum.to_list(1..size)
-
-    new_board =
-      player1_moves
-      |> Enum.map(&(&1 - 1))
-      |> Enum.reduce(board, &List.replace_at(&2, &1, player1_marker))
-
-    player2_moves
-    |> Enum.map(&(&1 - 1))
-    |> Enum.reduce(new_board, &List.replace_at(&2, &1, player2_marker))
   end
 end
