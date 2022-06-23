@@ -14,7 +14,6 @@ The initial functionality permits gameplay between two human players. The progra
 - [Usage](#usage)
     - [Launching the Game](#launching)
     - [Instructions](#instructions)
-- [Future Implementation](#future)
 <br><br>
 
 ## Getting Started <a name = "getting_started"></a>
@@ -65,6 +64,8 @@ mix start
 
 ### Instructions
 
+Select your opponent (computer or another human player).
+
 Enter the number (1-9) of the space on the board where you want to move.
 
 Player 1 moves first and marks their spaces with an "X". Player 2 marks with an "O".
@@ -72,7 +73,3 @@ Player 1 moves first and marks their spaces with an "X". Player 2 marks with an 
 To win, claim 3 adjacent spaces in a horizontal, vertical, or diagonal line.
 
 If there are no free spaces and no player has won, the game will end in a draw.
-
-## Future Implementation <a name = "future"></a>
-- Add gameplay between a human player vs. Unbeatable AI player
-<br><br>

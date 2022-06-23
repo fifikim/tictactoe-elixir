@@ -16,7 +16,7 @@ defmodule TicTacToe.AiLogicTest do
      TestHelpers.mock_board([{[1, 2, 7, 9], "X"}, {[3, 4, 5, 8], "O"}], 9)}
   ]
 
-  describe "AiLogic.find_best/2" do
+  describe "AiLogic.find_best_cell/2" do
     for {description, selection, cells} <- @test_boards do
       test "selects the best cell when #{description}" do
         assert AiLogic.find_best_cell(unquote(cells), ["X", "O"]) == unquote(selection)
