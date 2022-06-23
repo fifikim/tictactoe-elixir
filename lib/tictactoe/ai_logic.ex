@@ -1,38 +1,56 @@
-# defmodule TicTacToe.AiLogic do
-#   alias TicTacToe.Board
-#   alias TicTacToe.ConsoleIO
-#   alias TicTacToe.Game
-#   alias TicTacToe.WinFinder
+defmodule TicTacToe.AiLogic do
+  alias TicTacToe.Board
+  alias TicTacToe.WinFinder
 
-#   def find_best(cells, [ai_marker, next_player_marker] = markers) do
-#     # filter out occupied spaces & score each space
-#     Enum.to_list(0..(length(cells) - 1))
-#     |> Enum.map(&Enum.at(cells, &1))
-#     |> Enum.with_index()
-#     |> Enum.reject(&occupied?(&1, cells, markers))
-#     |> Enum.map(&score_move(&1, ai_marker, cells, true))
+  def find_best_cell(cells, markers) do
+    {cell_num, _score} = score_free_cells(cells, markers, true)
+    "#{cell_num}"
+  end
 
-#     # find highest score
-#     # return cell_num
-#   end
+  defp score_free_cells(cells, markers, is_ai) do
+    cells
+    |> reject_occupied(markers)
+    |> Enum.map(&score_possible_move(&1, markers, cells, is_ai))
+    |> sort_scores(is_ai)
+    |> List.first()
+  end
 
-#   defp occupied?({value, index}, cells, markers) do
-#     Board.space_occupied?(index, cells, markers)
-#   end
+  defp reject_occupied(cells, markers) do
+    cells
+    |> Enum.with_index()
+    |> Enum.reject(fn {_value, index} -> Board.space_occupied?(index, cells, markers) end)
+  end
 
-#   def score_move({cell_num, index}, ai_marker, cells, Maximizing) do
-#     score =
-#       index
-#       |> Board.update(ai_marker, cells)
-#       |> minimax()
+  defp score_possible_move({_value, index}, markers, cells, is_ai) do
+    index
+    |> simulate_new_board(markers, cells, is_ai)
+    |> get_score(markers, is_ai)
+    |> then(&{index + 1, &1})
+  end
 
-#     {cell_num, score}
-#   end
+  defp simulate_new_board(index, [ai_marker, _], cells, is_ai) when is_ai,
+    do: Board.update(index, ai_marker, cells)
 
-#   # def high_score({cell_num, score})
+  defp simulate_new_board(index, [_, human_marker], cells, _is_ai),
+    do: Board.update(index, human_marker, cells)
 
-#   def minimax(board), do: 1
+  defp get_score(%Board{cells: updated_cells}, [ai_marker, human_marker] = markers, is_ai) do
+    cond do
+      WinFinder.game_won?(updated_cells, ai_marker) -> 1
+      WinFinder.game_won?(updated_cells, human_marker) -> -1
+      Board.full?(updated_cells, markers) -> 0
+      true -> find_best_score(updated_cells, markers, !is_ai)
+    end
+  end
 
-#   defp to_index(input), do: String.to_integer(input) - 1
-#   defp to_cell_num(index), do: Integer.to_string(index + 1)
-# end
+  defp sort_scores(scores_list, is_ai) when is_ai,
+    do: Enum.sort_by(scores_list, fn {_cell_num, score} -> score end, :desc)
+
+  defp sort_scores(scores_list, _is_ai),
+    do: Enum.sort_by(scores_list, fn {_cell_num, score} -> score end, :asc)
+
+  defp find_best_score(cells, markers, is_ai) do
+    {_cell_num, score} = score_free_cells(cells, markers, is_ai)
+    score
+  end
+end
