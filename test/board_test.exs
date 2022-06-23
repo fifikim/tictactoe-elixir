@@ -2,6 +2,13 @@ defmodule TicTacToe.BoardTest do
   alias TicTacToe.Board
   use ExUnit.Case
 
+  @test_boards [
+    {"no occupied cells", "1", TestHelpers.mock_board([], "X", 9)},
+    {"the first cell occupied", "2", TestHelpers.mock_board([1], "X", 9)},
+    {"the first two cells occupied", "3", TestHelpers.mock_board([1, 2], "X", 9)},
+    {"the first and third space occupied", "2", TestHelpers.mock_board([1, 3], "X", 9)}
+  ]
+
   test "Board struct creates a new Board", do: assert(%Board{} == %Board{cells: nil})
 
   test "Board.update/3 updates a board with a given marker at a given index" do
@@ -37,5 +44,13 @@ defmodule TicTacToe.BoardTest do
     board = TestHelpers.new_board()
     expected_row_length = 3
     assert Board.row_length(board.cells) == expected_row_length
+  end
+
+  describe "Board.first_free/2" do
+    for {description, selection, cells} <- @test_boards do
+      test "selects the first free cell from a board with #{description}" do
+        assert Board.first_free(unquote(cells), ["X", "O"]) == unquote(selection)
+      end
+    end
   end
 end

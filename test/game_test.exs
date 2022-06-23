@@ -16,35 +16,35 @@ defmodule TicTacToe.GameTest do
   describe "Game.play/1" do
     test "prints the 'new game' message" do
       assert capture_io([input: @default_moves], fn ->
-               game = TestHelpers.new_game()
+               game = TestHelpers.new_game_p2p()
                Game.play(game)
              end) =~ "Starting new game..."
     end
 
     test "prints the instructions" do
       assert capture_io([input: @default_moves], fn ->
-               game = TestHelpers.new_game()
+               game = TestHelpers.new_game_p2p()
                Game.play(game)
              end) =~ "Instructions"
     end
 
     test "prints the board" do
       assert capture_io([input: @default_moves], fn ->
-               game = TestHelpers.new_game()
+               game = TestHelpers.new_game_p2p()
                Game.play(game)
              end) =~ " X | O | X "
     end
 
     test "starts the game & ends when there is a draw" do
       assert capture_io([input: "5\n2\n8\n7\n4\n6\n3\n1\n9"], fn ->
-               game = TestHelpers.new_game()
+               game = TestHelpers.new_game_p2p()
                Game.play(game)
              end) =~ "Game over! It's a draw!"
     end
 
     test "starts the game & ends when there is a winner" do
       assert capture_io([input: @default_moves], fn ->
-               game = TestHelpers.new_game()
+               game = TestHelpers.new_game_p2p()
                Game.play(game)
              end) =~ "Game over! Player 1 wins!"
     end

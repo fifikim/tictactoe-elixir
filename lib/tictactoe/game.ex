@@ -25,22 +25,31 @@ defmodule TicTacToe.Game do
     ConsoleIO.display_board(cells)
     ConsoleIO.turn_message(current_player)
 
-    start_turn(game)
+    move(game)
     |> Board.update(current_player_marker, board)
     |> check_over(game)
   end
 
-  defp start_turn(%Game{} = game) do
-    Player.select_cell()
-    |> Validation.check_selection(game)
-    |> record_or_reprompt(game)
+  defp move(
+         %Game{
+           board: %Board{} = board,
+           current_player: %Player{marker: current_player_marker, type: current_player_type},
+           next_player: %Player{marker: next_player_marker}
+         } = game
+       ) do
+    Player.select_cell(current_player_type, board, [
+      current_player_marker,
+      next_player_marker
+    ])
+    |> Validation.cell_selection(game)
+    |> handle_cell_selection(game)
   end
 
-  defp record_or_reprompt({:ok, index}, _game), do: index
+  defp handle_cell_selection({:ok, index}, _game), do: index
 
-  defp record_or_reprompt({:error, reason}, %Game{} = game) do
+  defp handle_cell_selection({:error, reason}, %Game{} = game) do
     ConsoleIO.selection_error(reason)
-    start_turn(game)
+    move(game)
   end
 
   defp check_over(

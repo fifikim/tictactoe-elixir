@@ -17,7 +17,19 @@ defmodule TicTacToe.ConsoleIO do
     |> output()
   end
 
-  def turn_message(%Player{name: name, type: :human}), do: output("#{name}'s turn:")
+  def player_menu(options) do
+    output("Who would you like to play against?")
+
+    options_with_number = Enum.with_index(options, 1)
+
+    for {{label, _game}, number} <- options_with_number do
+      output("#{number} - #{label}")
+    end
+  end
+
+  def turn_message(%Player{name: name, type: :human}), do: output("#{name}'s move:")
+
+  def turn_message(%Player{name: name}), do: output("#{name} is processing its move:\n")
 
   def selection_error(reason),
     do: output("Invalid selection! #{reason} Please try again:")
