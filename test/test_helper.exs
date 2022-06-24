@@ -1,6 +1,7 @@
 ExUnit.start()
 
 defmodule TestHelpers do
+  alias TicTacToe.AiLogic
   alias TicTacToe.Board
   alias TicTacToe.Game
   alias TicTacToe.Player
