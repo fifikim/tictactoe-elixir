@@ -2,13 +2,6 @@ defmodule TicTacToe.BoardTest do
   alias TicTacToe.Board
   use ExUnit.Case
 
-  @test_boards [
-    {"no occupied cells", "1", TestHelpers.mock_board([], "X", 9)},
-    {"the first cell occupied", "2", TestHelpers.mock_board([1], "X", 9)},
-    {"the first two cells occupied", "3", TestHelpers.mock_board([1, 2], "X", 9)},
-    {"the first and third space occupied", "2", TestHelpers.mock_board([1, 3], "X", 9)}
-  ]
-
   test "Board struct creates a new Board", do: assert(%Board{} == %Board{cells: nil})
 
   test "Board.update/3 updates a board with a given marker at a given index" do

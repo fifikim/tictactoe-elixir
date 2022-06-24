@@ -3,8 +3,8 @@ defmodule TicTacToe.AiLogic do
   alias TicTacToe.WinFinder
 
   def find_best_cell(cells, markers) do
-    {cell_num, _score} = score_free_cells(cells, markers, true)
-    "#{cell_num}"
+    {index, _score} = score_free_cells(cells, markers, true)
+    index
   end
 
   defp score_free_cells(cells, markers, is_ai) do
@@ -25,7 +25,7 @@ defmodule TicTacToe.AiLogic do
     index
     |> simulate_new_board(markers, cells, is_ai)
     |> get_score(markers, is_ai)
-    |> then(&{index + 1, &1})
+    |> then(&{index, &1})
   end
 
   defp simulate_new_board(index, [ai_marker, _], cells, is_ai) when is_ai,
@@ -44,13 +44,13 @@ defmodule TicTacToe.AiLogic do
   end
 
   defp sort_scores(scores_list, is_ai) when is_ai,
-    do: Enum.sort_by(scores_list, fn {_cell_num, score} -> score end, :desc)
+    do: Enum.sort_by(scores_list, fn {_index, score} -> score end, :desc)
 
   defp sort_scores(scores_list, _is_ai),
-    do: Enum.sort_by(scores_list, fn {_cell_num, score} -> score end, :asc)
+    do: Enum.sort_by(scores_list, fn {_index, score} -> score end, :asc)
 
   defp find_best_score(cells, markers, is_ai) do
-    {_cell_num, score} = score_free_cells(cells, markers, is_ai)
+    {_index, score} = score_free_cells(cells, markers, is_ai)
     score
   end
 end

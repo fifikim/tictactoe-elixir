@@ -30,17 +30,16 @@ defmodule TicTacToe.Game do
     |> check_over(game)
   end
 
-  defp move(
-         %Game{
-           board: %Board{} = board,
-           current_player: %Player{marker: current_player_marker, type: current_player_type},
-           next_player: %Player{marker: next_player_marker}
-         } = game
-       ) do
-    Player.select_cell(current_player_type, board, [
-      current_player_marker,
-      next_player_marker
-    ])
+  defp move(%Game{
+         board: %Board{cells: cells},
+         current_player: %Player{marker: ai_marker, type: :ai, logic: logic},
+         next_player: %Player{marker: next_player_marker}
+       }) do
+    logic.find_best_cell(cells, [ai_marker, next_player_marker])
+  end
+
+  defp move(%Game{} = game) do
+    ConsoleIO.input()
     |> Validation.cell_selection(game)
     |> handle_cell_selection(game)
   end

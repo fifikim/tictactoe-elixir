@@ -25,21 +25,24 @@ defmodule TestHelpers do
     do: %Player{
       marker: "X",
       name: "Player 1 (Computer)",
-      type: :ai
+      type: :ai,
+      logic: AiLogic
     }
 
   def human_player1,
     do: %Player{
       marker: "X",
       name: "Player 1",
-      type: :human
+      type: :human,
+      logic: nil
     }
 
   def human_player2,
     do: %Player{
       marker: "O",
       name: "Player 2",
-      type: :human
+      type: :human,
+      logic: nil
     }
 
   def new_game_p2p,
