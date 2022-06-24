@@ -1,5 +1,4 @@
 defmodule TicTacToe.PlayerTest do
-  alias TicTacToe.AiLogic
   alias TicTacToe.Player
   use ExUnit.Case
   import ExUnit.CaptureIO
@@ -8,7 +7,8 @@ defmodule TicTacToe.PlayerTest do
     assert %Player{} == %Player{
              marker: nil,
              name: nil,
-             type: nil
+             type: nil,
+             logic: nil
            }
   end
 
