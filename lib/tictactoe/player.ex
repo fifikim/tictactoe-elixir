@@ -8,5 +8,7 @@ defmodule TicTacToe.Player do
             logic: nil
 
   def select_cell, do: ConsoleIO.input()
-  def select_cell(%Player{logic: ai_logic}), do: ai_logic
+
+  def select_cell(%Player{logic: ai_logic}, cells, markers),
+    do: ai_logic.find_best_cell(cells, markers)
 end

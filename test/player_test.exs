@@ -20,10 +20,11 @@ defmodule TicTacToe.PlayerTest do
     end
   end
 
-  describe "Player.select_cell/1" do
-    test "returns Player's logic module when passed a Player" do
+  describe "Player.select_cell/3" do
+    test "returns index of best available cell when passed an AI Player" do
       player = TestHelpers.ai_player()
-      assert Player.select_cell(player) == AiLogic
+      cells = TestHelpers.mock_board([1, 2], "X", 9)
+      assert Player.select_cell(player, cells, ["X", "O"]) == 2
     end
   end
 end

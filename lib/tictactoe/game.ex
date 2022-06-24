@@ -35,9 +35,7 @@ defmodule TicTacToe.Game do
          current_player: %Player{marker: ai_marker, type: :ai} = ai_player,
          next_player: %Player{marker: next_player_marker}
        }) do
-    ai_player
-    |> Player.select_cell()
-    |> then(fn logic -> logic.find_best_cell(cells, [ai_marker, next_player_marker]) end)
+    Player.select_cell(ai_player, cells, [ai_marker, next_player_marker])
   end
 
   defp move(%Game{} = game) do
