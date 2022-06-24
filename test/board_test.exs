@@ -45,12 +45,4 @@ defmodule TicTacToe.BoardTest do
     expected_row_length = 3
     assert Board.row_length(board.cells) == expected_row_length
   end
-
-  describe "Board.first_free/2" do
-    for {description, selection, cells} <- @test_boards do
-      test "selects the first free cell from a board with #{description}" do
-        assert Board.first_free(unquote(cells), ["X", "O"]) == unquote(selection)
-      end
-    end
-  end
 end

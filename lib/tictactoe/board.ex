@@ -24,11 +24,5 @@ defmodule TicTacToe.Board do
     |> trunc()
   end
 
-  def first_free(cells, markers) do
-    cells
-    |> Enum.find(&(!Enum.member?(markers, &1)))
-    |> Integer.to_string()
-  end
-
   defp is_marker?(value, markers), do: Enum.member?(markers, value)
 end
