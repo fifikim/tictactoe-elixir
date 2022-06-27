@@ -19,7 +19,7 @@ defmodule TicTacToe.CLI.GameConfigTest do
                "1 - Another player\n2 - Computer"
     end
 
-    test "returns human vs human game if player selects 1" do
+    test "returns human vs human game if user selects 1" do
       {%Game{current_player: %Player{type: opponent_type}}, _output} =
         assert with_io("1", fn ->
                  GameConfig.select_opponent()
@@ -28,7 +28,7 @@ defmodule TicTacToe.CLI.GameConfigTest do
       assert opponent_type == :human
     end
 
-    test "returns human vs computer game if player selects 2" do
+    test "returns human vs ai game if user selects 2" do
       {%Game{current_player: %Player{type: opponent_type}}, _output} =
         assert with_io("2", fn ->
                  GameConfig.select_opponent()

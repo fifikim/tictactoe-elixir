@@ -1,6 +1,7 @@
 ExUnit.start()
 
 defmodule TestHelpers do
+  alias TicTacToe.AiLogic
   alias TicTacToe.Board
   alias TicTacToe.Game
   alias TicTacToe.Player
@@ -25,21 +26,24 @@ defmodule TestHelpers do
     do: %Player{
       marker: "X",
       name: "Player 1 (Computer)",
-      type: :ai
+      type: :ai,
+      logic: AiLogic
     }
 
   def human_player1,
     do: %Player{
       marker: "X",
       name: "Player 1",
-      type: :human
+      type: :human,
+      logic: nil
     }
 
   def human_player2,
     do: %Player{
       marker: "O",
       name: "Player 2",
-      type: :human
+      type: :human,
+      logic: nil
     }
 
   def new_game_p2p,
@@ -63,9 +67,26 @@ defmodule TestHelpers do
       next_player: human_player2()
     }
 
-  def mock_board(cell_nums, marker, size) do
-    board = Enum.to_list(1..size)
+  def mock_board(moves, marker, size) do
+    Enum.to_list(1..size)
+    |> add_moves(moves, marker)
+  end
 
+  def mock_board(options) do
+    %{
+      player1_marker: player1_marker,
+      player1_moves: player1_moves,
+      player2_marker: player2_marker,
+      player2_moves: player2_moves,
+      size: size
+    } = Enum.into(options, %{})
+
+    Enum.to_list(1..size)
+    |> add_moves(player1_moves, player1_marker)
+    |> add_moves(player2_moves, player2_marker)
+  end
+
+  defp add_moves(board, cell_nums, marker) do
     cell_nums
     |> Enum.map(&(&1 - 1))
     |> Enum.reduce(board, &List.replace_at(&2, &1, marker))

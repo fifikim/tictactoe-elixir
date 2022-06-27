@@ -18,7 +18,7 @@ defmodule TicTacToe.Game do
 
   defp take_turn(
          %Game{
-           board: %Board{cells: cells} = board,
+           board: %Board{cells: cells},
            current_player: %Player{marker: current_player_marker} = current_player
          } = game
        ) do
@@ -26,21 +26,20 @@ defmodule TicTacToe.Game do
     ConsoleIO.turn_message(current_player)
 
     move(game)
-    |> Board.update(current_player_marker, board)
+    |> Board.update(current_player_marker, cells)
     |> check_over(game)
   end
 
-  defp move(
-         %Game{
-           board: %Board{} = board,
-           current_player: %Player{marker: current_player_marker, type: current_player_type},
-           next_player: %Player{marker: next_player_marker}
-         } = game
-       ) do
-    Player.select_cell(current_player_type, board, [
-      current_player_marker,
-      next_player_marker
-    ])
+  defp move(%Game{
+         board: %Board{cells: cells},
+         current_player: %Player{marker: ai_marker, type: :ai} = ai_player,
+         next_player: %Player{marker: next_player_marker}
+       }) do
+    Player.select_cell(ai_player, cells, [ai_marker, next_player_marker])
+  end
+
+  defp move(%Game{} = game) do
+    Player.select_cell()
     |> Validation.cell_selection(game)
     |> handle_cell_selection(game)
   end
@@ -64,7 +63,7 @@ defmodule TicTacToe.Game do
       WinFinder.game_won?(cells, current_player_marker) ->
         ConsoleIO.game_over(:won, cells, current_player_name)
 
-      Board.full?(updated_board, [current_player_marker, next_player_marker]) ->
+      Board.full?(cells, [current_player_marker, next_player_marker]) ->
         ConsoleIO.game_over(:draw, cells)
 
       true ->

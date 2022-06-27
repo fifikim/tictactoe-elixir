@@ -22,7 +22,7 @@ defmodule TicTacToe.Validation do
   def cell_selection(
         selection,
         %Game{
-          board: %Board{cells: cells} = board,
+          board: %Board{cells: cells},
           current_player: %Player{marker: current_player_marker},
           next_player: %Player{marker: next_player_marker}
         } = game
@@ -31,7 +31,7 @@ defmodule TicTacToe.Validation do
       invalid_character?(selection, game) ->
         {:error, "You must select a number between 1 and #{Enum.count(cells)}."}
 
-      Board.space_occupied?(to_index(selection), board, [
+      Board.space_occupied?(to_index(selection), cells, [
         current_player_marker,
         next_player_marker
       ]) ->

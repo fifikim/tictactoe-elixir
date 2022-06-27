@@ -1,4 +1,5 @@
 defmodule TicTacToe.CLI.GameConfig do
+  alias TicTacToe.AiLogic
   alias TicTacToe.Board
   alias TicTacToe.ConsoleIO
   alias TicTacToe.Game
@@ -24,7 +25,8 @@ defmodule TicTacToe.CLI.GameConfig do
     current_player: %Player{
       marker: "X",
       name: "Player 1 (Computer)",
-      type: :ai
+      type: :ai,
+      logic: AiLogic
     },
     next_player: %Player{
       marker: "O",

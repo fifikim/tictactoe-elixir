@@ -1,11 +1,14 @@
 defmodule TicTacToe.Player do
-  alias TicTacToe.Board
   alias TicTacToe.ConsoleIO
+  alias TicTacToe.Player
 
   defstruct type: nil,
             name: nil,
-            marker: nil
+            marker: nil,
+            logic: nil
 
-  def select_cell(:ai, %Board{cells: cells}, markers), do: Board.first_free(cells, markers)
-  def select_cell(:human, _board, _markers), do: ConsoleIO.input()
+  def select_cell, do: ConsoleIO.input()
+
+  def select_cell(%Player{logic: ai_logic}, cells, markers),
+    do: ai_logic.find_best_cell(cells, markers)
 end
