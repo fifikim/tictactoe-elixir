@@ -67,12 +67,20 @@ defmodule TestHelpers do
       next_player: human_player2()
     }
 
-  def mock_board(cell_nums, marker, size) do
+  def mock_board(moves, marker, size) do
     Enum.to_list(1..size)
-    |> add_moves(cell_nums, marker)
+    |> add_moves(moves, marker)
   end
 
-  def mock_board([{player1_moves, player1_marker}, {player2_moves, player2_marker}], size) do
+  def mock_board(options) do
+    %{
+      player1_marker: player1_marker,
+      player1_moves: player1_moves,
+      player2_marker: player2_marker,
+      player2_moves: player2_moves,
+      size: size
+    } = Enum.into(options, %{})
+
     Enum.to_list(1..size)
     |> add_moves(player1_moves, player1_marker)
     |> add_moves(player2_moves, player2_marker)
